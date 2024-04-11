@@ -9,7 +9,15 @@ const main = async () => {
         await simpleStorage.deploymentTransaction().wait(6);
         await verify(simpleStorage.target)
     }
-    console.log(network.config);
+    
+    const currentValue = await simpleStorage.retrieve();
+    console.log(`current value : ${currentValue}`);
+    const transactionResponse = await simpleStorage.store(7);
+    await transactionResponse.wait(1);
+    const updatedValue = await simpleStorage.retrieve();
+    console.log(`updated value is : ${updatedValue}`);
+
+
 }
 
 const verify = async (contractAddress, args) => {
